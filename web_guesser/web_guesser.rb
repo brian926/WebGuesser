@@ -6,8 +6,9 @@ NUMBER = rand(101)
 get '/' do
   guess = params["guess"]
   message = check_guess(guess)
+  color = color(message)
 
-  erb :index, :locals => {:number => NUMBER, :message => message}
+  erb :index, :locals => {:number => NUMBER, :message => message, :color => color}
   
 end
  
@@ -23,4 +24,14 @@ else
     return "You Win!"
   end
  end
+end
+
+def color(message)
+  if message  == "Too low!" || message == "Too high!"
+    return "red"
+  elsif message == "You Win!"
+    return "green"
+  else
+    return "#ffe5e5"
+  end
 end
