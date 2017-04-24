@@ -2,13 +2,35 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 NUMBER = rand(101)
+@@counter = 5
+correct = false
+cheat_mode = ""
 
 get '/' do
-  guess = params["guess"]
-  message = check_guess(guess)
+  message = check_guess(params["guess"])
   color = color(message)
 
-  erb :index, :locals => {:number => NUMBER, :message => message, :color => color}
+  if params['cheat'] == "true"
+    cheat_mode = "Here you go, the number is #{NUMBER}"
+end
+
+  if @@counter == 5
+    message = "Guess a number!"
+    @@counter -= 1
+  elsif @@counter == 1 && !correct
+    message = "Out of Guesses! Guess again for a new number!"
+    color = "blue"
+    @@counter = 5
+    NUMBER = rand(101)
+  elsif correct
+    NUMBER = rand(101)
+    @@counter = 5
+    correct = false
+  else
+    @@counter -= 1
+  end
+
+  erb :index, :locals => { :cheat_mode => cheat_mode, :counter => @@counter, :message => message, :color => color }
   
 end
  

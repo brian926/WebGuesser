@@ -9,11 +9,14 @@
 <body>
 <div style ="text-align: center">
 <form>
-	<input type='text' name='guess' />
-	<input type='submit' value='Guess!' />
+	<input type = 'text' name = 'guess' />
+	<input type = 'submit' value = 'Guess!' />
+	<imput type = 'hidden' name = 'cheat' value = 'false' />
 </form>
 <p>
 <%= message %>
+<h3>You have <%= counter %> guesses left!</h3>
+<h4> <%= cheat_mode %> </h4>
 </p>
 </div>
 	</body>
